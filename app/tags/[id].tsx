@@ -1,4 +1,3 @@
-import { MacroElement } from '@/components/MacrosElement';
 import { PieChart } from '@/components/PieChart';
 import { getTupperInfo } from '@/services/openPrepSvc';
 import { Tupper } from '@/types/types';
@@ -38,19 +37,8 @@ export default function Tag() {
           ),
         }}
       />
-      <View>
-        <Text>
-          {t('tagPage:ID')}: {id}
-        </Text>
-        <Text>
-          {t('tagPage:recipe')}: {tupperInfo.recipe}
-        </Text>
-        <Text>
-          {t('tagPage:freezing_date')}: {tupperInfo.freezing_date}
-        </Text>
 
-        <PieChart info={tupperInfo} />
-      </View>
+      <PieChart info={tupperInfo} tagID={id} />
     </ScrollView>
   );
 }

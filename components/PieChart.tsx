@@ -5,9 +5,11 @@ import { StyleSheet, Text, View } from 'react-native';
 import { PieChart as Chart } from 'react-native-gifted-charts';
 
 export const PieChart = ({
-  info: { carbs, fats, proteins, kcal },
+  info: { carbs, fats, proteins, kcal, recipe, freezing_date },
+  tagID,
 }: {
   info: Tupper;
+  tagID: string;
 }) => {
   const { t } = useTranslation();
 
@@ -33,7 +35,7 @@ export const PieChart = ({
         }}
       >
         <Text style={{ color: 'white', fontSize: 16, fontWeight: 'bold' }}>
-          Macros
+          {recipe}
         </Text>
         <View style={{ padding: 20, alignItems: 'center' }}>
           <Chart
@@ -61,6 +63,14 @@ export const PieChart = ({
           />
         </View>
         {renderLegendComponent(t, carbs, fats, proteins, kcal)}
+        <View style={{ paddingTop: 20 }}>
+          <Text style={styles.textColor}>
+            {t('tagPage:freezing_date')}: {freezing_date}
+          </Text>
+          <Text style={styles.textColor}>
+            {t('tagPage:ID')}: {tagID}
+          </Text>
+        </View>
       </View>
     </View>
   );
@@ -108,12 +118,7 @@ const renderLegendComponent = (
             {t(`tagPage:proteins`)}: {proteins}g
           </Text>
         </View>
-        <View style={styles.legendMacroItem}>
-          {renderDot('#009FFF')}
-          <Text style={styles.textColor}>
-            {t(`tagPage:kcal`)}: {kcal} kcal
-          </Text>
-        </View>
+        <View style={styles.legendMacroItem}></View>
       </View>
     </View>
   );
@@ -128,7 +133,6 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   legendMacroColumn: {
-    justifyContent: 'center',
     gap: 5,
   },
   legendMacroItem: {
