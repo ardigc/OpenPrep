@@ -4,10 +4,10 @@ import { TupperInfo } from '@/types/types';
 const tupperInfo: TupperInfo = {
   '1234': {
     recipe: 'Grilled chicken with quinoa and vegetables',
-    kcal: 450,
+    kcal: 4500,
     proteins: 35,
     fats: 15,
-    carbs: 40,
+    carbs: 400,
     freezing_date: '2024-09-20',
   },
   '5678': {

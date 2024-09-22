@@ -1,9 +1,11 @@
+import { MacroElement } from '@/components/MacrosElement';
+import { PieChart } from '@/components/PieChart';
 import { getTupperInfo } from '@/services/openPrepSvc';
 import { Tupper } from '@/types/types';
 import { Stack, useLocalSearchParams } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ScrollView, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 
 export default function Tag() {
   const { id }: { id: string } = useLocalSearchParams();
@@ -40,9 +42,23 @@ export default function Tag() {
         <Text>
           {t('tagPage:ID')}: {id}
         </Text>
-        <Text>Recipe: {tupperInfo.recipe}</Text>
-        <Text>Recipe: {tupperInfo.freezing_date}</Text>
+        <Text>
+          {t('tagPage:recipe')}: {tupperInfo.recipe}
+        </Text>
+        <Text>
+          {t('tagPage:freezing_date')}: {tupperInfo.freezing_date}
+        </Text>
+
+        <PieChart info={tupperInfo} />
       </View>
     </ScrollView>
   );
 }
+const styles = StyleSheet.create({
+  macrosContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    marginTop: 10,
+  },
+});
