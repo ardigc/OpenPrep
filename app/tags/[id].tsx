@@ -4,11 +4,10 @@ import { Tupper } from '@/types/types';
 import { Stack, useLocalSearchParams } from 'expo-router';
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { Button, ScrollView, StyleSheet, Text, View } from 'react-native';
 
 export default function Tag() {
   const { id }: { id: string } = useLocalSearchParams();
-  const { t } = useTranslation();
   const [tupperInfo, setTupperInfo] = useState<Tupper | null>(null);
   useEffect(() => {
     const getData = async () => {
@@ -30,8 +29,15 @@ export default function Tag() {
       <Stack.Screen
         options={{
           headerTitle: () => (
-            <View>
-              <Text>{tupperInfo.recipe}</Text>
+            <View
+              style={{
+                flexDirection: 'row',
+
+                gap: 5,
+              }}
+            >
+              <Text>{tupperInfo.name}</Text>
+              <Button title="edit" />
               {/* <Text>NFC tag {id}</Text> */}
             </View>
           ),

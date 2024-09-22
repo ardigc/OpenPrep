@@ -1,5 +1,7 @@
 // Define the type for a Tupper
 export interface Tupper {
+  0;
+  name: string;
   recipe: string;
   kcal: number;
   proteins: number; // in grams
