@@ -1,12 +1,5 @@
-import { Slot, Stack, useLocalSearchParams } from 'expo-router';
-import { Text } from 'react-native';
+import { Stack } from 'expo-router';
 
 export default function HomeLayout() {
-  const { id } = useLocalSearchParams();
-
-  return (
-    <Stack>
-      <Stack.Screen name="[id]" options={{ headerTitle: `NFC tag ${id}` }} />
-    </Stack>
-  );
+  return <Stack />;
 }

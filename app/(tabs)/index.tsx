@@ -1,8 +1,10 @@
 import { Link } from 'expo-router';
+import { useTranslation } from 'react-i18next';
 import { Text, View } from 'react-native';
 
 export default function Index() {
-  const nfcTags = [1, 2, 3];
+  const { t } = useTranslation();
+  const nfcTags = ['1234', '5678', '9101', '1121'];
   return (
     <View
       style={{
@@ -11,7 +13,7 @@ export default function Index() {
         alignItems: 'center',
       }}
     >
-      <Text>Holi bb</Text>
+      <Text>{t('common:welcome')} bb</Text>
       {nfcTags.map((tagID) => (
         <Link key={tagID} href={`/tags/${tagID}`}>
           NFC TAG {tagID}
