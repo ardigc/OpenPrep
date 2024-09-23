@@ -9,7 +9,8 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "test": "jest --watchAll",
-    "lint": "expo lint"
+    "lint": "expo lint",
+    "json-server": "json-server --host 0.0.0.0 --watch jsonServer/db.json --port 3000"
   },
   "jest": {
     "preset": "jest-expo"
@@ -29,6 +30,7 @@
     "expo-system-ui": "~3.0.7",
     "expo-web-browser": "~13.0.3",
     "i18next": "^23.15.1",
+    "json-server": "^1.0.0-beta.2",
     "prettier": "^3.3.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",

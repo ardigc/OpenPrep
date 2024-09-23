@@ -1,46 +1,23 @@
 import { TupperInfo } from '@/types/types';
 
-// Sample object with dummy tupper data
-const tupperInfo: TupperInfo = {
-  '1234': {
-    name:'Tupper cristal grande',
-    recipe: 'Grilled chicken with quinoa and vegetables',
-    kcal: 4500,
-    proteins: 35,
-    fats: 15,
-    carbs: 400,
-    freezing_date: '2024-09-20',
-  },
-  '5678': {
-    name:'Tupper cristal pequeño',
-    recipe: 'Tuna salad with whole-wheat pasta and avocado',
-    kcal: 520,
-    proteins: 30,
-    fats: 25,
-    carbs: 50,
-    freezing_date: '2024-09-21',
-  },
-  '9101': {
-    name:'Tupper plastico grande',
-    recipe: 'Spinach omelette with roasted potatoes',
-    kcal: 380,
-    proteins: 18,
-    fats: 10,
-    carbs: 45,
-    freezing_date: '2024-09-19',
-  },
-  '1121': {
-    name:'Tupper plastico pequeño',
-    recipe: 'Baked salmon with brown rice and broccoli',
-    kcal: 600,
-    proteins: 40,
-    fats: 20,
-    carbs: 55,
-    freezing_date: '2024-09-22',
-  },
-};
+function wait(time: number) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, time);
+  });
+}
 
 export const getTupperInfo = async (tupperID: string) => {
-  const tupper = tupperInfo[tupperID];
-  return tupper;
+  try {
+    const response = await fetch(`http://192.168.1.157:3000/${tupperID}`);
+    const parsedResponse = await response.json();
+    console.log(parsedResponse);
+    return parsedResponse;
+  } catch (e) {
+    console.log(e);
+  }
+};
+export const editTupperName = async (newName: string, tupperID: string) => {
+  tupperInfo[tupperID].name = newName;
+  await wait(1000);
+  return { data: true, error: null };
 };

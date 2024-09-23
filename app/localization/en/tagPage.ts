@@ -4,4 +4,5 @@ export default {
   carbs: 'Carbs',
   proteins: 'Proteins',
   fats: 'Fat',
+  newName: "Tupper's new name",
 };
