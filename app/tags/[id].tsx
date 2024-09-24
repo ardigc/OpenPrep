@@ -1,11 +1,14 @@
 import { ChangeTupperName } from '@/components/tag/ChangeTupperName';
+import { CleanTupperButton } from '@/components/tag/CleanTupperButton';
 import { PieChart } from '@/components/tag/PieChart';
 import { Colors } from '@/constants/Colors';
 import { getTupperInfo } from '@/services/openPrepSvc';
 import { Tupper } from '@/types/types';
 import { Ionicons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 import { Stack, useLocalSearchParams } from 'expo-router';
 import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import {
   Alert,
   Pressable,
@@ -14,8 +17,6 @@ import {
   Text,
   View,
 } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { useTranslation } from 'react-i18next';
 
 export default function Tag() {
   const { id }: { id: string } = useLocalSearchParams();
@@ -89,18 +90,7 @@ export default function Tag() {
         <>
           <PieChart info={tupper.info} tagID={id} />
           <View style={styles.buttonsContainer}>
-            <Pressable
-              style={({ pressed }) => [
-                {
-                  backgroundColor: pressed
-                    ? Colors.light.buttonBackgroundPressed
-                    : Colors.light.buttonBackground,
-                },
-                styles.button,
-              ]}
-            >
-              <Text style={styles.textStyleButton}>Clean Tupper Meal</Text>
-            </Pressable>
+            <CleanTupperButton />
             <Pressable
               style={({ pressed }) => [
                 {

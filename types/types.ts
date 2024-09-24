@@ -9,5 +9,5 @@ export interface NutritionalInfo {
 
 export interface Tupper {
   name: string;
-  info: NutritionalInfo;
+  info?: NutritionalInfo;
 }
