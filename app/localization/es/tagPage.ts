@@ -5,4 +5,5 @@ export default {
   proteins: 'Proteinas',
   fats: 'Grasas',
   newName: 'Nuevo nombre del tupper',
+  tupperFail:'Hubo un problema al cargar el tupper.'
 };

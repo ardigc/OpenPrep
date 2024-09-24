@@ -1,4 +1,3 @@
-import { Colors } from '@/constants/Colors';
 import { editTupperName } from '@/services/openPrepSvc';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -12,6 +11,7 @@ import {
   View,
 } from 'react-native';
 import Spinner from '../common/Spinner';
+import { Colors } from '@/constants/Colors';
 
 export const ChangeTupperName = ({
   onCloseModal,
@@ -19,7 +19,7 @@ export const ChangeTupperName = ({
   tupperName,
   tupperID,
 }: {
-  onCloseModal: () => void;
+  onCloseModal: (updated: boolean) => void;
   modalVisible: boolean;
   tupperName: string;
   tupperID: string;
@@ -33,7 +33,7 @@ export const ChangeTupperName = ({
     const response = await editTupperName(name, tupperID);
     setLoading(false);
     if (response.data) {
-      onCloseModal();
+      onCloseModal(true);
       return;
     }
     Alert.alert('Fail updating name');
@@ -45,8 +45,8 @@ export const ChangeTupperName = ({
       transparent={true}
       visible={modalVisible}
       onRequestClose={() => {
-        Alert.alert('Changes not saved');
-        onCloseModal();
+        if (name !== tupperName) Alert.alert('Changes not saved');
+        onCloseModal(false);
       }}
     >
       <View style={styles.centeredView}>
@@ -111,7 +111,7 @@ const styles = StyleSheet.create({
     elevation: 2,
   },
   buttonClose: {
-    backgroundColor: '#2196F3',
+    backgroundColor: Colors.light.buttonBackground,
   },
   textStyle: {
     fontWeight: 'bold',

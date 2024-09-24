@@ -5,4 +5,5 @@ export default {
   proteins: 'Proteins',
   fats: 'Fat',
   newName: "Tupper's new name",
+  tupperFail: 'Fail getting tupper info.',
 };

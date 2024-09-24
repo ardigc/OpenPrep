@@ -1,4 +1,4 @@
-import { Tupper } from '@/types/types';
+import { NutritionalInfo } from '@/types/types';
 import { TFunction } from 'i18next';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet, Text, View } from 'react-native';
@@ -8,15 +8,15 @@ export const PieChart = ({
   info: { carbs, fats, proteins, kcal, recipe, freezing_date },
   tagID,
 }: {
-  info: Tupper;
+  info: NutritionalInfo;
   tagID: string;
 }) => {
   const { t } = useTranslation();
 
   const pieData = [
-    { value: fats, color: '#FFA5BA', gradientCenterColor: '#FF7F97' },
-    { value: carbs, color: '#009FFF', gradientCenterColor: '#006DFF' },
-    { value: proteins, color: '#BDB2FA', gradientCenterColor: '#8F80F3' },
+    { value: fats ?? 0, color: '#FFA5BA', gradientCenterColor: '#FF7F97' },
+    { value: carbs ?? 0, color: '#009FFF', gradientCenterColor: '#006DFF' },
+    { value: proteins ?? 0, color: '#BDB2FA', gradientCenterColor: '#8F80F3' },
   ];
 
   return (
@@ -62,7 +62,7 @@ export const PieChart = ({
             }}
           />
         </View>
-        {renderLegendComponent(t, carbs, fats, proteins, kcal)}
+        {renderLegendComponent(t, carbs, fats, proteins)}
         <View style={{ paddingTop: 20 }}>
           <Text style={styles.textColor}>
             {t('tagPage:freezing_date')}: {freezing_date}
@@ -77,10 +77,9 @@ export const PieChart = ({
 };
 const renderLegendComponent = (
   t: TFunction<'translation', undefined>,
-  carbs: number,
-  fats: number,
-  proteins: number,
-  kcal: number
+  carbs?: number,
+  fats?: number,
+  proteins?: number
 ) => {
   const renderDot = (color: string) => {
     return (

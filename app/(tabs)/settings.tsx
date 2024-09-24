@@ -13,8 +13,6 @@ export default function Settings() {
     { code: 'es', label: t('language:spanish') },
   ];
   const selectedLanguageCode = i18n.language;
-  console.log(languages, i18n);
-  console.log(selectedLanguageCode);
   return (
     <ParallaxScrollView
       headerBackgroundColor={{ light: '#D0D0D0', dark: '#353636' }}
