@@ -90,7 +90,10 @@ export default function Tag() {
         <>
           <PieChart info={tupper.info} tagID={id} />
           <View style={styles.buttonsContainer}>
-            <CleanTupperButton />
+            <CleanTupperButton
+              tupperID={id}
+              onCleanTupper={() => getTupperData()}
+            />
             <Pressable
               style={({ pressed }) => [
                 {

@@ -3,9 +3,20 @@ import { useState } from 'react';
 import { Pressable, StyleSheet, Text } from 'react-native';
 import { CustomAlert } from '../CustomAlert';
 import CleaningScrubberIcon from '@/assets/icons/CleaningScrubberIcon';
+import { cleanTupper } from '@/services/openPrepSvc';
 
-export const CleanTupperButton = () => {
+export const CleanTupperButton = ({
+  tupperID,
+  onCleanTupper,
+}: {
+  tupperID: string;
+  onCleanTupper: () => void;
+}) => {
   const [openModal, setOpenModal] = useState(false);
+  const handleClean = async () => {
+    const res = await cleanTupper(tupperID);
+    if (res.data) onCleanTupper();
+  };
   return (
     <Pressable
       onPress={() => {
@@ -25,8 +36,9 @@ export const CleanTupperButton = () => {
 
       <CustomAlert
         isVisible={openModal}
-        onCancel={() => {}}
-        onConfirm={() => {}}
+        onCancel={() => setOpenModal(false)}
+        onConfirm={handleClean}
+        title={'Do you want to clean this tupper?'}
       />
     </Pressable>
   );

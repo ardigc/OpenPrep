@@ -1,21 +1,16 @@
 import { Colors } from '@/constants/Colors';
-import {
-  Modal,
-  StyleSheet,
-  TouchableOpacity,
-  View,
-  Text,
-  Pressable,
-} from 'react-native';
+import { Modal, Pressable, StyleSheet, Text, View } from 'react-native';
 
 export const CustomAlert = ({
   isVisible,
   onCancel,
   onConfirm,
+  title,
 }: {
   isVisible: boolean;
   onCancel: () => void;
   onConfirm: () => void;
+  title: string;
 }) => {
   return (
     <Modal
@@ -26,8 +21,10 @@ export const CustomAlert = ({
     >
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
-          <Text>Do you want to clean this tupper?</Text>
-          <Text>This action will delete the meal info</Text>
+          <Text style={{ fontWeight: 'bold' }}>{title}</Text>
+          <View style={styles.contentContainer}>
+            <Text>This action will delete the meal info</Text>
+          </View>
           <View style={styles.buttonsContainer}>
             <Pressable
               style={({ pressed }) => [
@@ -36,6 +33,7 @@ export const CustomAlert = ({
                 },
                 styles.button,
               ]}
+              onPress={() => onCancel()}
             >
               <Text style={styles.textStyleButtonCancel}>Cancel</Text>
             </Pressable>
@@ -48,6 +46,7 @@ export const CustomAlert = ({
                 },
                 styles.button,
               ]}
+              onPress={() => onConfirm()}
             >
               <Text style={styles.textStyleButton}>Confirm</Text>
             </Pressable>
@@ -82,9 +81,9 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   buttonsContainer: {
-    margin: 20,
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    marginLeft: 'auto',
+    gap: 5,
   },
   button: {
     padding: 16,
@@ -99,5 +98,8 @@ const styles = StyleSheet.create({
   textStyleButtonCancel: {
     color: 'red',
     textAlign: 'center',
+  },
+  contentContainer: {
+    padding: 5,
   },
 });

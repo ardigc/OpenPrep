@@ -35,3 +35,21 @@ export const editTupperName = async (newName: string, tupperID: string) => {
     return { data: null, error: e };
   }
 };
+export const cleanTupper = async (tupperID: string) => {
+  try {
+    const response = await fetch(
+      `http://192.168.1.157:3000/tuppers/${tupperID}`,
+      {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ info: null }),
+      }
+    );
+
+    return { data: response.ok, error: null };
+  } catch (e) {
+    return { data: null, error: e };
+  }
+};
