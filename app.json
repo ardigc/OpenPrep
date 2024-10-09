@@ -19,7 +19,11 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "permissions": [
+        "android.permission.NFC"
+      ],
+      "package": "com.anonymous.OpenPrep"
     },
     "web": {
       "bundler": "metro",
@@ -28,10 +32,16 @@
     },
     "plugins": [
       "expo-router",
-      "expo-localization"
+      "expo-localization",
+      "react-native-nfc-manager"
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "eas": {
+        "projectId": "cff6fb8f-e696-4a14-b6bd-b5eacb2cf24b"
+      }
     }
   }
 }
