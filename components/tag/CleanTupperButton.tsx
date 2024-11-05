@@ -18,29 +18,30 @@ export const CleanTupperButton = ({
     if (res.data) onCleanTupper();
   };
   return (
-    <Pressable
-      onPress={() => {
-        setOpenModal(true);
-      }}
-      style={({ pressed }) => [
-        {
-          backgroundColor: pressed
-            ? Colors.light.buttonBackgroundPressed
-            : Colors.light.buttonBackground,
-        },
-        styles.button,
-      ]}
-    >
-      <Text style={styles.textStyleButton}>Clean Tupper</Text>
-      <CleaningScrubberIcon color="white" />
-
+    <>
+      <Pressable
+        onPress={() => {
+          setOpenModal(true);
+        }}
+        style={({ pressed }) => [
+          {
+            backgroundColor: pressed
+              ? Colors.light.buttonBackgroundPressed
+              : Colors.light.buttonBackground,
+          },
+          styles.button,
+        ]}
+      >
+        <Text style={styles.textStyleButton}>Clean Tupper</Text>
+        <CleaningScrubberIcon color="white" />
+      </Pressable>
       <CustomAlert
         isVisible={openModal}
         onCancel={() => setOpenModal(false)}
         onConfirm={handleClean}
         title={'Do you want to clean this tupper?'}
       />
-    </Pressable>
+    </>
   );
 };
 const styles = StyleSheet.create({
