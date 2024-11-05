@@ -1,32 +1,74 @@
-import React from 'react';
+import JWT from 'expo-jwt';
+import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native';
-import NfcManager, { NfcTech } from 'react-native-nfc-manager';
+import NfcManager, { NfcTech, Ndef } from 'react-native-nfc-manager';
+import uuid from 'react-native-uuid';
 
 // Pre-step, call this before any NFC operations
 NfcManager.start();
+const SECRET_KEY_TEST =
+  'eyJhbGciOiJIUzI1NiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6IkphdmFJblVzZSIsImV4cCI6MTczMDgzODExNywiaWF0IjoxNzMwODM4MTE3fQ.9bmb__h0eO0QkIryRQJB-0TduOk9oSLaFt-5tflS16Q';
 
 export default function Index() {
-  async function readNdef() {
+  const [message, setMessage] = useState('');
+  const readNdef = async () => {
     try {
-      console.log('scaning')
+      console.log('scaning');
       // register for the NFC tag with NDEF in it
       await NfcManager.requestTechnology(NfcTech.Ndef);
-      // the resolved tag object will contain `ndefMessage` property
       const tag = await NfcManager.getTag();
-      console.warn('Tag found', tag);
+
+      if (tag?.ndefMessage && tag?.ndefMessage.length > 0) {
+        const ndefRecord = tag.ndefMessage[0];
+
+        const decodedPayload = ndefRecord.payload
+          .map((element) => String.fromCharCode(element))
+          .join('');
+
+        const customData = JSON.parse(decodedPayload.substring(3));
+        const decoded = JWT.decode(customData, SECRET_KEY_TEST);
+        console.log('ID Interno:', decoded);
+        setMessage(decoded.id);
+      }
     } catch (ex) {
       console.warn('Oops!', ex);
     } finally {
       // stop the nfc scanning
       NfcManager.cancelTechnologyRequest();
     }
-  }
+  };
+  const writeCustomData = async () => {
+    try {
+      await NfcManager.start();
 
+      await NfcManager.requestTechnology(NfcTech.Ndef);
+      const id = uuid.v4();
+      const token = JWT.encode({ id }, SECRET_KEY_TEST);
+
+      const jsonString = JSON.stringify(token);
+
+      const bytes = Ndef.encodeMessage([Ndef.textRecord(jsonString)]);
+
+      if (bytes) {
+        await NfcManager.ndefHandler.writeNdefMessage(bytes);
+        console.log('Datos escritos con éxito en la etiqueta NFC');
+      }
+    } catch (ex) {
+      console.warn('Error al escribir en la etiqueta NFC', ex);
+    } finally {
+      // Asegúrate de cancelar la tecnología NFC cuando hayas terminado
+      NfcManager.cancelTechnologyRequest();
+    }
+  };
   return (
     <View style={styles.wrapper}>
       <TouchableOpacity onPress={readNdef}>
         <Text>Scan a Tag</Text>
       </TouchableOpacity>
+      <TouchableOpacity onPress={() => writeCustomData('ID12345')}>
+        <Text>Write a Tag</Text>
+      </TouchableOpacity>
+      {!!message && <Text>internalId:{message}</Text>}
     </View>
   );
 }
