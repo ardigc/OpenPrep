@@ -1,5 +1,7 @@
+import GiveTupperMeal from '@/assets/icons/GiveTupperMeal';
 import { ChangeTupperName } from '@/components/tag/ChangeTupperName';
 import { CleanTupperButton } from '@/components/tag/CleanTupperButton';
+import { FeedTupperButton } from '@/components/tag/FeedTupperButton';
 import { PieChart } from '@/components/tag/PieChart';
 import { Colors } from '@/constants/Colors';
 import { getTupperInfo } from '@/services/openPrepSvc';
@@ -83,6 +85,13 @@ export default function Tag() {
       </Pressable>
     );
 
+  if (!tupper)
+    return (
+      <View>
+        <Text>Loading...</Text>
+      </View>
+    );
+
   return (
     <ScrollView>
       <Stack.Screen options={{ headerTitle, headerRight }} />
@@ -116,7 +125,11 @@ export default function Tag() {
         </>
       ) : (
         <View>
-          <Text>Loading...</Text>
+          <Text>Empty tupper</Text>
+          <FeedTupperButton
+            tupperID={id}
+            onCleanTupper={() => getTupperData()}
+          />
         </View>
       )}
     </ScrollView>

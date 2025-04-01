@@ -3,14 +3,7 @@
     {
       "id": "ks4utsn",
       "name": "Tupper cristal grande",
-      "info": {
-        "recipe": "Grilled chicken with quinoa and vegetables",
-        "kcal": 4500,
-        "proteins": 35,
-        "fats": 15,
-        "carbs": 400,
-        "freezing_date": "2024-09-20"
-      }
+      "info": null
     },
     {
       "id": "5678",

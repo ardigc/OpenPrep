@@ -35,6 +35,7 @@ export const editTupperName = async (newName: string, tupperID: string) => {
     return { data: null, error: e };
   }
 };
+
 export const cleanTupper = async (tupperID: string) => {
   try {
     const response = await fetch(
